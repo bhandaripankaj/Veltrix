@@ -5,6 +5,8 @@ import Dashboard from './pages/Dashboard'
 import Category from './pages/Category'
 import Collections from './pages/Collections'
 import Books from './pages/Books'
+import BookRequests from './pages/BookRequests'
+import BookRequestView from './pages/BookRequestView'
 import UserRequests from './pages/UserRequests'
 import Settings from './pages/Settings'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -52,6 +54,26 @@ function App() {
             <ProtectedRoute>
               <Layout>
                 <Books />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/book-requests"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <BookRequests />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/book-requests/:id"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <BookRequestView />
               </Layout>
             </ProtectedRoute>
           }

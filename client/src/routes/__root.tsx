@@ -3,6 +3,8 @@ import appCss from "../styles.css?url";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
+
 
 function NotFoundComponent() {
   return (
@@ -63,6 +65,7 @@ function RootComponent() {
           <Outlet />
         </main>
         <Footer />
+        <WhatsAppButton />
       </div>
     </ThemeProvider>
   );

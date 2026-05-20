@@ -206,7 +206,7 @@ function BookDetailsPage() {
             )}
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <Link to="/contact" className="btn-primary w-full text-center">
+              <Link to={`/book-request/${book._id}`} className="btn-primary w-full text-center">
                 I&apos;m Interested
               </Link>
               <button onClick={() => navigate(-1)} className="btn-outline w-full text-center">

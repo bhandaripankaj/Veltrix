@@ -59,6 +59,9 @@ function Books() {
   const [showCollectionDropdown, setShowCollectionDropdown] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [statusModalOpen, setStatusModalOpen] = useState(false)
+  const [statusChangeBookId, setStatusChangeBookId] = useState<string | null>(null)
+  const [newStatus, setNewStatus] = useState<string>('')
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
@@ -195,6 +198,27 @@ function Books() {
       } catch (error) {
         console.error('Error deleting book:', error)
       }
+    }
+  }
+
+  const handleOpenStatusModal = (bookId: string, currentStatus: string) => {
+    setStatusChangeBookId(bookId)
+    setNewStatus(currentStatus)
+    setStatusModalOpen(true)
+  }
+
+  const handleStatusChange = async () => {
+    if (!statusChangeBookId) return
+
+    try {
+      await bookAPI.update(statusChangeBookId, { status: newStatus })
+      setStatusModalOpen(false)
+      setStatusChangeBookId(null)
+      setNewStatus('')
+      fetchData()
+    } catch (error) {
+      console.error('Error updating book status:', error)
+      alert('Failed to update book status')
     }
   }
 
@@ -523,7 +547,15 @@ function Books() {
                     <td>₹{book.price}</td>
                     <td>{book.categories.map(c => c.name).join(', ') || '-'}</td>
                     <td>{book.collections.map(c => c.name).join(', ') || '-'}</td>
-                    <td><span className={`status ${book.status}`}>{book.status}</span></td>
+                    <td>
+                      <span 
+                        className={`status ${book.status}`}
+                        onClick={() => handleOpenStatusModal(book._id, book.status)}
+                        style={{ cursor: 'pointer' }}
+                      >
+                        {book.status}
+                      </span>
+                    </td>
                     <td className="action-buttons">
                       <button className="btn-sm" onClick={() => handleEdit(book)}>Edit</button>
                       <button className="btn-sm btn-danger" onClick={() => handleDelete(book._id)}>Delete</button>
@@ -534,6 +566,39 @@ function Books() {
             </tbody>
           </table>
             </div>
+
+        {statusModalOpen && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <h3>Change Book Status</h3>
+              <div className="form-group">
+                <label htmlFor="status-select">Select New Status:</label>
+                <select
+                  id="status-select"
+                  value={newStatus}
+                  onChange={(e) => setNewStatus(e.target.value)}
+                  className="form-input"
+                >
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                  <option value="draft">Draft</option>
+                </select>
+              </div>
+              <div className="modal-buttons">
+                <button className="btn-success" onClick={handleStatusChange}>
+                  Update Status
+                </button>
+                <button className="btn-secondary" onClick={() => {
+                  setStatusModalOpen(false)
+                  setStatusChangeBookId(null)
+                  setNewStatus('')
+                }}>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
           </section>
   )
 }

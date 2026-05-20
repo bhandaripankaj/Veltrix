@@ -544,7 +544,7 @@ function HomePage() {
                         <div className="mt-3 flex-1 flex flex-col">
                           <p className="font-display text-[13px] sm:text-sm leading-snug line-clamp-2">{b.title}</p>
                           <p className="text-xs text-muted-foreground mt-0.5">{b.author}</p>
-                          <Link to="/contact" className="mt-3 w-full text-center btn-outline !h-9 !text-xs py-0">
+                          <Link to={`/book-request/${b._id}`} className="mt-3 w-full text-center btn-outline !h-9 !text-xs py-0">
                             I&apos;m Interested
                           </Link>
                         </div>

@@ -6,6 +6,7 @@ import authRoutes from './routes/authRoutes.js'
 import bookRoutes from './routes/bookRoutes.js'
 import categoryRoutes from './routes/categoryRoutes.js'
 import collectionRoutes from './routes/collectionRoutes.js'
+import bookRequestRoutes from './routes/bookRequestRoutes.js'
 
 dotenv.config()
 
@@ -24,6 +25,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/books', bookRoutes)
 app.use('/api/categories', categoryRoutes)
 app.use('/api/collections', collectionRoutes)
+app.use('/api/book-requests', bookRequestRoutes)
 
 // Health check
 app.get('/api/health', (req, res) => {

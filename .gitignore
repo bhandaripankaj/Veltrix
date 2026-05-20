@@ -23,7 +23,7 @@ backend/.env
 
 
 client/dist/*
-admin/dist/
+admin/dist/ 
 backend/dist
 
 dist-ssr

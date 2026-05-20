@@ -2,13 +2,18 @@ import Collection from '../models/Collection.js'
 
 export const getAllCollections = async (req, res) => {
   try {
-    const collections = await Collection.aggregate([
+    // Check if user is authenticated (has valid token)
+    const isAuthenticated = req.headers.authorization && req.headers.authorization.startsWith('Bearer ')
+    
+    // Build the aggregation pipeline
+    const pipeline = [
       {
         $lookup: {
           from: 'books',
           localField: '_id',
           foreignField: 'collections',
-          as: 'books'
+          as: 'books',
+          pipeline: isAuthenticated ? [] : [{ $match: { status: 'active' } }]
         }
       },
       {
@@ -29,7 +34,9 @@ export const getAllCollections = async (req, res) => {
         }
       },
       { $sort: { ranking: 1, createdAt: -1 } }
-    ])
+    ]
+
+    const collections = await Collection.aggregate(pipeline)
 
     res.json(collections)
   } catch (error) {

@@ -73,3 +73,32 @@ export const bookAPI = {
     }
   },
 }
+
+export const bookRequestAPI = {
+  create: async (payload: { name: string; email: string; phone: string; book: string; message?: string }) => {
+    const response = await fetch(`${API_BASE_URL}/book-requests`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+    if (!response.ok) throw new Error(`Failed to send book request: ${response.status}`)
+    return response.json()
+  },
+
+  // Admin endpoints
+  getAll: async (token?: string) => {
+    const res = await fetch(`${API_BASE_URL}/book-requests`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    })
+    if (!res.ok) throw new Error(`Failed to fetch book requests: ${res.status}`)
+    return res.json()
+  },
+
+  getById: async (id: string, token?: string) => {
+    const res = await fetch(`${API_BASE_URL}/book-requests/${id}`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    })
+    if (!res.ok) throw new Error(`Failed to fetch book request: ${res.status}`)
+    return res.json()
+  },
+}

@@ -2,7 +2,13 @@ import Book from '../models/Book.js'
 
 export const getAllBooks = async (req, res) => {
   try {
-    const books = await Book.find()
+    // Check if user is authenticated (has valid token)
+    const isAuthenticated = req.headers.authorization && req.headers.authorization.startsWith('Bearer ')
+    
+    // Filter by active status for public (non-authenticated) requests
+    const query = isAuthenticated ? {} : { status: 'active' }
+    
+    const books = await Book.find(query)
       .sort({ createdAt: -1 })
       .populate('categories', 'name')
       .populate('collections', 'name')
@@ -16,11 +22,19 @@ export const getAllBooks = async (req, res) => {
 
 export const getBookById = async (req, res) => {
   try {
+    // Check if user is authenticated (has valid token)
+    const isAuthenticated = req.headers.authorization && req.headers.authorization.startsWith('Bearer ')
+    
     const book = await Book.findById(req.params.id)
       .populate('categories', 'name')
       .populate('collections', 'name')
 
     if (!book) {
+      return res.status(404).json({ message: 'Book not found' })
+    }
+
+    // For public (non-authenticated) requests, only show active books
+    if (!isAuthenticated && book.status !== 'active') {
       return res.status(404).json({ message: 'Book not found' })
     }
 

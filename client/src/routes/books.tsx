@@ -248,7 +248,7 @@ function BooksPage() {
                   <p className="text-[10px] text-muted-foreground mt-1 line-clamp-1">
                     {getBookCategoryNames(b).join(" · ")}
                   </p>
-                  <Link to="/contact" className="mt-3 w-full text-center btn-outline !h-9 !text-xs py-0">
+                  <Link to={`/book-request/${b._id}`} className="mt-3 w-full text-center btn-outline !h-9 !text-xs py-0">
                     I&apos;m Interested
                   </Link>
                 </div>
