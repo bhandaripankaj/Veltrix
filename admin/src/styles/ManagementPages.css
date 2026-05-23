@@ -63,6 +63,144 @@
   font-family: inherit;
 }
 
+.card-soft,
+.detail-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 18px rgba(17, 24, 39, 0.06);
+  border: 1px solid #f0f1f5;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 24px;
+}
+
+.detail-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #1f2937;
+}
+
+.subtitle {
+  margin-top: 6px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 14px;
+}
+
+.detail-row:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.detail-row--stacked {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detail-label {
+  color: #6b7280;
+  font-size: 13px;
+  flex: 0 0 120px;
+}
+
+.detail-value {
+  color: #111827;
+  font-size: 15px;
+  text-align: right;
+  flex: 1;
+}
+
+.detail-value--monospace {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.book-cover-wrapper {
+  overflow: hidden;
+  border-radius: 14px;
+  margin-bottom: 18px;
+}
+
+.book-cover {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+.book-title {
+  margin: 0 0 6px;
+  font-size: 22px;
+  color: #111827;
+}
+
+.book-author {
+  margin: 0 0 16px;
+  color: #4b5563;
+  font-size: 14px;
+}
+
+.book-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #1d4ed8;
+  background: #eff6ff;
+}
+
+.badge--active {
+  color: #065f46;
+  background: #d1fae5;
+}
+
+.badge--inactive {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+.book-description {
+  color: #475569;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.book-specs {
+  margin-top: 10px;
+}
+
+@media (max-width: 1024px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .error-message {
   color: #e74c3c;
   font-size: 12px;

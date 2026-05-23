@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import '../styles/ManagementPages.css'
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api'
+
 interface BookRequest {
   _id: string
   name: string
@@ -23,7 +25,7 @@ function BookRequests() {
     const load = async () => {
       setLoading(true)
       try {
-        const res = await fetch('/api/book-requests', { headers: token ? { Authorization: `Bearer ${token}` } : {} })
+        const res = await fetch(`${API_BASE_URL}/book-requests`, { headers: token ? { Authorization: `Bearer ${token}` } : {} })
         if (!res.ok) throw new Error('Failed to fetch')
         const data = await res.json()
         setRequests(data)
